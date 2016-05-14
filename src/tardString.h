@@ -7,3 +7,5 @@ struct Match{
 };
 
 struct Match byStartAndCloseChar(char start, char close, char* inStr, size_t inStrLength);
+
+struct Match byNestedString(char* inStr, size_t inStrLength);

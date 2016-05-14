@@ -40,11 +40,41 @@ struct Match byStartAndCloseChar(char start, char close, char* inStr, size_t inS
 				startFound = true;
 				nrOfStarts++;
 			}
-		}
-			  
+		}		  
 	}
-
 	match.stopPos = match .startPos;
 	return match;
-
 }
+
+
+//Returns start and stop index of nested string. Not including the " characters.
+//If start and end index is equal then no nested string is found.
+struct Match byNestedString(char* inStr, size_t inStrLength)
+{
+	struct Match match;
+	match.startPos = 0;
+	match.stopPos = 0;
+	bool startFound = false;
+	for (size_t i = 0; i < inStrLength; i++)
+	{
+		if(startFound)
+		{
+			if(inStr[i] == '"')
+			{
+				match.stopPos = i - 1;
+				return match;
+			}
+		}
+		else
+		{
+			if(inStr[i] == '"')
+			{
+				startFound = true;
+				match.startPos = i + 1;
+			}
+		}
+	}
+	match.stopPos = match.startPos;
+	return match;
+}
+	
